@@ -69,5 +69,19 @@ namespace AbstractTrader
             LogMessage("INFO: {0} trades processed", trades.Count());
         }
 
+
+
+        protected void LogMessage(string message, params object[] args)
+        {
+            Console.WriteLine(message, args);
+            // added for Request 408
+            using (StreamWriter logfile = File.AppendText("log.xml"))
+            {
+                logfile.WriteLine("<log>" + message + "</log>", args);
+            }
+
+        }
     }
 }
+    
+

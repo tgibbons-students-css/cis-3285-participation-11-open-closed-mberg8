@@ -8,23 +8,12 @@ using System.Threading.Tasks;
 
 namespace AbstractTrader
 {
-    public abstract class TradeProcessor
+    public interface IProcessTrades 
     {
         protected abstract IEnumerable<string> ReadTradeData(Stream stream);
 
         protected abstract IEnumerable<TradeRecord> ParseTrades(IEnumerable<string> tradeData);
 
-
-        protected void LogMessage(string message, params object[] args)
-        {
-            Console.WriteLine(message, args);
-            // added for Request 408
-            using (StreamWriter logfile = File.AppendText("log.xml"))
-            {
-                logfile.WriteLine("<log>"+message+"</log>", args);
-            }
-
-        }
 
         protected abstract void StoreTrades(IEnumerable<TradeRecord> trades);
 
